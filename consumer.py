@@ -39,32 +39,38 @@ while True:
 
     topic1 = msg1.topic()
     value1 = msg1.value()
-    print(f"Message: {msg1}")
+    print(f"Message: {msg1.value()}")
 
     if topic1 == 'notifications':
         if msg1.key() == b'course_sold':
             notification_data = json.loads(value1)
-            notif = Notification.objects.create(
-                from_user=notification_data['from_user'],
-                to_user=notification_data['to_user'],
-                notification_type=notification_data['notification_type'],
-                text_preview=notification_data['text_preview'],
-                url=notification_data['url'],
-                icon=notification_data['icon'],
-                is_seen=notification_data['is_seen'],
-                course=notification_data['course'],
-            )
+            try:
+                notif = Notification.objects.create(
+                    from_user=notification_data['from_user'],
+                    to_user=notification_data['to_user'],
+                    notification_type=notification_data['notification_type'],
+                    text_preview=notification_data['text_preview'],
+                    url=notification_data['url'],
+                    icon=notification_data['icon'],
+                    is_seen=notification_data['is_seen'],
+                    course=notification_data['course'],
+                )
+            except:
+                continue
         if msg1.key() == b'friend_request':
             notification_data = json.loads(value1)
-            notif = Notification.objects.create(
-                from_user=notification_data['from_user'],
-                to_user=notification_data['to_user'],
-                notification_type=notification_data['notification_type'],
-                text_preview=notification_data['text_preview'],
-                url=notification_data['url'],
-                icon=notification_data['icon'],
-                is_seen=notification_data['is_seen'],
-            )
+            try:
+                notif = Notification.objects.create(
+                    from_user=notification_data['from_user'],
+                    to_user=notification_data['to_user'],
+                    notification_type=notification_data['notification_type'],
+                    text_preview=notification_data['text_preview'],
+                    url=notification_data['url'],
+                    icon=notification_data['icon'],
+                    is_seen=notification_data['is_seen'],
+                )
+            except:
+                continue
         if msg1.key() == b'cancel_friend_request':
             notification_data = json.loads(value1)
             notif = Notification.objects.get(
