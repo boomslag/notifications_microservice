@@ -10,20 +10,7 @@ secret_key = settings.SECRET_KEY
 class NotificationConsumer(AsyncWebsocketConsumer):
 
     async def connect(self):
-        # self.user_id = self.scope['query_string'].decode('utf-8').split('=')[1]
-        token = self.scope["query_string"].decode().split("=")[1]
-        try:
-            payload = jwt.decode(token, secret_key, algorithms=["HS256"])
-            self.user_id = payload["user_id"]
-        except jwt.ExpiredSignatureError:
-            # Handle expired token error
-            await self.close()
-        except jwt.DecodeError:
-            # Handle invalid token error
-            await self.close()
-        except Exception:
-            # Handle other errors
-            await self.close()
+        self.user_id = self.scope['query_string'].decode('utf-8').split('=')[1]
         self.group_name = 'notification_'+self.user_id
         print(f'User {self.user_id} joined Websocket with Group name {self.group_name}')
         # Join Group
