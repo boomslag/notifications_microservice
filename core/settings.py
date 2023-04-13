@@ -111,7 +111,7 @@ ASGI_APPLICATION = 'core.asgi.application'
 #     'default': {
 #         'BACKEND': 'channels_redis.core.RedisChannelLayer',
 #         'CONFIG': {
-#             "hosts": [({os.environ.get('REDIS_HOST')},{os.environ.get('REDIS_PORT')})],
+#             "hosts": [({os.environ.get('REDIS_URL')},{os.environ.get('REDIS_PORT')})],
 #         },
 #     },
 # }
